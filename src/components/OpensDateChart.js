@@ -31,12 +31,16 @@ const OpensDateChart = () => {
     }
   });
 
-  const opens = Object.keys(opensByDate).map((k) => ({
+  let opens = Object.keys(opensByDate).map((k) => ({
     ...opensByDate[k],
     date: moment(k, "YYYYMMDD"),
     dateString: moment(k, "YYYYMMDD").format("DD/MM"),
     avg: opensByDate[k].opensCount / opensByDate[k].userCount,
   }));
+
+  const minDate = moment("2022-06-01");
+  const maxDate = moment("2022-06-30");
+  opens = opens.filter(e => e.date.isSameOrAfter(minDate) && e.date.isSameOrBefore(maxDate));
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
