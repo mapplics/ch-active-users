@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header";
+import OpensDateChart from "./components/OpensDateChart";
+import OsPieChart from "./components/OsPieChart";
+import UserCountriesBars from "./components/UserCountriesBars";
+import VersionsBars from "./components/VersionsBars";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="max-w-screen-md mx-auto bg-gray-100 ">
+      <Header />
+      <div className="grid grid-cols-12 p-4">
+        <div className="col-span-12 md:col-span-4">
+          <OsPieChart />
+        </div>
+        <div className="col-span-12 md:col-span-8">
+          <VersionsBars />
+        </div>
+        <div className="col-span-12 mt-4">
+          <OpensDateChart />
+        </div>
+        <div className="col-span-12 mt-4">
+          <UserCountriesBars />
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
