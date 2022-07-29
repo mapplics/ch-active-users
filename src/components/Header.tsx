@@ -1,6 +1,6 @@
-import actives from "../actives";
+import { ActiveUser } from "../interfaces";
 
-const Header = () => {
+const Header = ({actives}: {actives: ActiveUser[]}) => {
   let totalOpens = 0;
 
   actives.forEach((element) => {
@@ -11,8 +11,6 @@ const Header = () => {
       );
     }
   });
-
-  console.log(actives.filter((a) => !a.opensByDate).length);
 
   return (
     <div className="w-full py-5 px-4 text-gray-700 bg-gray-200 relative">

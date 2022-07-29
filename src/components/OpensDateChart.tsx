@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment, { Moment } from "moment";
 import {
   CartesianGrid,
   Legend,
@@ -9,46 +9,59 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import actives from "../actives";
 import colors from "../colors";
+import { ActiveUser } from "../interfaces";
 
-const OpensDateChart = () => {
-  const opensByDate = {};
+const OpensDateChart = ({actives}: {actives: ActiveUser[]}) => {
+  const opensByDate: {
+    date: Moment;
+    dateString: string;
+    dateShort: string;
+    avg: number | undefined;
+    userCount: number;
+    opensCount: number;
+  }[] = [];
 
   actives.forEach((e) => {
-    if (e.opensByDate) {
-      Object.keys(e.opensByDate).forEach((k) => {
-        if (opensByDate[k]) {
-          opensByDate[k].userCount++;
-          opensByDate[k].opensCount += e.opensByDate[k];
-        } else {
-          opensByDate[k] = {
-            userCount: 1,
-            opensCount: e.opensByDate[k],
-          };
-        }
-      });
-    }
+    if (!e.opensByDate) return;
+
+    Object.keys(e.opensByDate).forEach((k) => {
+      let date = opensByDate.find((x) => x.dateString === k);
+
+      if (!date) {
+        date = {
+          dateString: k,
+          date: moment(k, "YYYYMMDD"),
+          dateShort: moment(k, "YYYYMMDD").format("DD/MM"),
+          userCount: 0,
+          opensCount: 0,
+          avg: undefined,
+        };
+
+        opensByDate.push(date);
+      }
+
+      date.userCount++;
+      date.opensCount += e.opensByDate[k];
+    });
   });
 
-  let opens = Object.keys(opensByDate).map((k) => ({
-    ...opensByDate[k],
-    date: moment(k, "YYYYMMDD"),
-    dateString: moment(k, "YYYYMMDD").format("DD/MM"),
-    avg: opensByDate[k].opensCount / opensByDate[k].userCount,
-  }));
+  opensByDate.sort((a,b) => a.date.diff( b.date));
+
+  opensByDate.forEach((e) => (e.avg = e.opensCount / e.userCount));
 
   const minDate = moment("2022-06-01");
   const maxDate = moment("2022-06-30");
-  opens = opens.filter(e => e.date.isSameOrAfter(minDate) && e.date.isSameOrBefore(maxDate));
+  const opens = opensByDate.filter(
+    (e) => e.date.isSameOrAfter(minDate) && e.date.isSameOrBefore(maxDate),
+  );
 
-  const CustomTooltip = ({ active, payload, label }) => {
+  const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
         <div className="rounded-lg bg-white opacity-90 p-3">
           <p className="text-gray-500 mb-2">
-            {payload[0].payload.date.format("DD/MM/YYYY")}
-            {" "}
+            {payload[0].payload.date.format("DD/MM/YYYY")}{" "}
             {payload[0].payload.date.format("dddd")}
           </p>
           <table>
@@ -90,7 +103,7 @@ const OpensDateChart = () => {
       <ResponsiveContainer height={360} className="text-sm">
         <LineChart data={opens}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="dateString" interval={2} />
+          <XAxis dataKey="dateShort" interval={2} />
           <YAxis />
           <Tooltip content={<CustomTooltip />} />
           <Legend />

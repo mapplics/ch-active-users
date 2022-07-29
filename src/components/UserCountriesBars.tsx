@@ -1,6 +1,6 @@
-import { scaleLog } from "d3-scale";
-import actives from "../actives";
 import colors from "../colors";
+import { scaleLog } from "d3-scale";
+import { ActiveUser } from "../interfaces";
 
 const {
   ResponsiveContainer,
@@ -14,31 +14,35 @@ const {
 } = require("recharts");
 const scale = scaleLog();
 
-const UserCountriesBars = () => {
+const UserCountriesBars = ({actives}: {actives: ActiveUser[]}) => {
   let totalUsers = 0;
 
-  let countries = {};
+  const countries: {
+    name: string;
+    userCount: number;
+  }[] = [];
 
   actives.forEach((e) => {
     if (!e.country) return;
 
-    totalUsers++;
+    let country = countries.find((x) => x.name === e.country);
 
-    if (countries[e.country]) {
-      countries[e.country]++;
-    } else {
-      countries[e.country] = 1;
+    if (!country) {
+      country = {
+        name: e.country,
+        userCount: 0,
+      };
+
+      countries.push(country);
     }
-  });
 
-  countries = Object.keys(countries).map((k) => ({
-    name: k,
-    userCount: countries[k],
-  }));
+    totalUsers++;
+    country.userCount++;
+  });
 
   countries.sort((a, b) => b.userCount - a.userCount);
 
-  const CustomTooltip = ({ active, payload, label }) => {
+  const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
         <div className="rounded-lg bg-white opacity-90 p-3">
@@ -73,8 +77,8 @@ const UserCountriesBars = () => {
       </p>
       <p className="mb-6 text-sm text-gray-500">Escala logarítmica</p>
       <ResponsiveContainer height={360} className="text-sm">
-        <BarChart data={countries} >
-          <CartesianGrid strokeDasharray={"2 2"}/>
+        <BarChart data={countries}>
+          <CartesianGrid strokeDasharray={"2 2"} />
           <Bar dataKey="userCount" fill={colors.water} name="Usuarios" />
 
           <YAxis type="number" scale={scale} domain={[1, "auto"]} />

@@ -1,34 +1,27 @@
-import actives from "../actives";
 import colors from "../colors";
+import { ActiveUser } from "../interfaces";
 
-const {
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-} = require("recharts");
+const { PieChart, Pie, Cell, Tooltip } = require("recharts");
 
-const OsPieChart = () => {
-  let os = {};
+const OsPieChart = ({actives}: {actives: ActiveUser[]}) => {
+  const osList: { name: string; userCount: number }[] = [];
+
   actives.forEach((e) => {
     if (!e.os) return;
 
-    if (os[e.os]) {
-      os[e.os]++;
-    } else {
-      os[e.os] = 1;
+    let os = osList.find((x) => x.name === e.os);
+
+    if (!os) {
+      os = { name: e.os, userCount: 0 };
+      osList.push(os);
     }
+
+    os.userCount++;
   });
 
-  os = Object.keys(os).map((k) => ({
-    name: k,
-    userCount: os[k],
-  }));
+  osList.sort((a, b) => b.userCount - a.userCount);
 
-  os.sort((a, b) => b.userCount - a.userCount);
-
-  const renderLabel = (value) => {
+  const renderLabel = (value: string) => {
     switch (value) {
       case "ios":
         return "IOs";
@@ -39,7 +32,7 @@ const OsPieChart = () => {
     }
   };
 
-  const getColor = (value) => {
+  const getColor = (value: string) => {
     switch (value) {
       case "ios":
         return colors.blue;
@@ -59,7 +52,7 @@ const OsPieChart = () => {
     outerRadius,
     percent,
     index,
-  }) => {
+  }: any) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.4;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -72,12 +65,12 @@ const OsPieChart = () => {
         textAnchor={"middle"}
         dominantBaseline="central"
       >
-        {`${renderLabel(os[index].name)} ${(percent * 100).toFixed(1)}%`}
+        {`${renderLabel(osList[index].name)} ${(percent * 100).toFixed(1)}%`}
       </text>
     );
   };
 
-  const CustomTooltip = ({ active, payload, label }) => {
+  const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
         <div className="rounded-lg bg-white opacity-90 p-3">
@@ -110,7 +103,7 @@ const OsPieChart = () => {
         <Tooltip content={<CustomTooltip />} />
 
         <Pie
-          data={os}
+          data={osList}
           cx="50%"
           cy="50%"
           labelLine={false}
@@ -118,7 +111,7 @@ const OsPieChart = () => {
           outerRadius={100}
           dataKey="userCount"
         >
-          {os.map((entry, index) => {
+          {osList.map((entry, index) => {
             return <Cell key={`cell-${index}`} fill={getColor(entry.name)} />;
           })}
         </Pie>
