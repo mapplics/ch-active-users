@@ -1,3 +1,5 @@
+import { useState } from "react";
+import actives from "./actives";
 import months from "./actives";
 import Header from "./components/Header";
 import OpensDateChart from "./components/OpensDateChart";
@@ -6,21 +8,23 @@ import UserCountriesBars from "./components/UserCountriesBars";
 import VersionsBars from "./components/VersionsBars";
 
 const App = () => {
+  const [monthData, setMonthData] = useState(actives[0]);
+
   return (
-    <div className="max-w-screen-md mx-auto bg-gray-100 ">
-      <Header  monthData={months[0]} />
-      <div className="grid grid-cols-12 p-4">
+    <div className="max-w-screen-md lg:max-w-screen-lg mx-auto bg-gray-100 flex flex-col h-screen">
+      <Header monthData={monthData} setData={setMonthData} />
+      <div className="grid grid-cols-12 p-4 flex-1 overflow-y-auto">
         <div className="col-span-12 md:col-span-4">
-          <OsPieChart  monthData={months[0]}/>
+          <OsPieChart monthData={monthData} />
         </div>
         <div className="col-span-12 md:col-span-8">
-          <VersionsBars  monthData={months[0]}/>
+          <VersionsBars monthData={monthData} />
         </div>
         <div className="col-span-12 mt-4">
-          <OpensDateChart  monthData={months[0]}/>
+          <OpensDateChart monthData={monthData} />
         </div>
         <div className="col-span-12 mt-4">
-          <UserCountriesBars monthData={months[0]}/>
+          <UserCountriesBars monthData={monthData} />
         </div>
       </div>
     </div>

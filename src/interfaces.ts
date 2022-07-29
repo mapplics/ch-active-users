@@ -16,4 +16,5 @@ export interface MonthData {
   users: ActiveUser[];
   start: Moment;
   finish: Moment;
+  label: string;
 }
