@@ -1,6 +1,6 @@
 import colors from "../colors";
 import { scaleLog } from "d3-scale";
-import { ActiveUser } from "../interfaces";
+import {  MonthData } from "../interfaces";
 
 const {
   ResponsiveContainer,
@@ -14,7 +14,7 @@ const {
 } = require("recharts");
 const scale = scaleLog();
 
-const UserCountriesBars = ({actives}: {actives: ActiveUser[]}) => {
+const UserCountriesBars = ({ monthData }: { monthData: MonthData }) => {
   let totalUsers = 0;
 
   const countries: {
@@ -22,7 +22,7 @@ const UserCountriesBars = ({actives}: {actives: ActiveUser[]}) => {
     userCount: number;
   }[] = [];
 
-  actives.forEach((e) => {
+  monthData.users.forEach((e) => {
     if (!e.country) return;
 
     let country = countries.find((x) => x.name === e.country);

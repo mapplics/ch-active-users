@@ -1,4 +1,4 @@
-import actives from "./actives";
+import months from "./actives";
 import Header from "./components/Header";
 import OpensDateChart from "./components/OpensDateChart";
 import OsPieChart from "./components/OsPieChart";
@@ -8,19 +8,19 @@ import VersionsBars from "./components/VersionsBars";
 const App = () => {
   return (
     <div className="max-w-screen-md mx-auto bg-gray-100 ">
-      <Header actives={actives} />
+      <Header  monthData={months[0]} />
       <div className="grid grid-cols-12 p-4">
         <div className="col-span-12 md:col-span-4">
-          <OsPieChart actives={actives}/>
+          <OsPieChart  monthData={months[0]}/>
         </div>
         <div className="col-span-12 md:col-span-8">
-          <VersionsBars actives={actives}/>
+          <VersionsBars  monthData={months[0]}/>
         </div>
         <div className="col-span-12 mt-4">
-          <OpensDateChart actives={actives}/>
+          <OpensDateChart  monthData={months[0]}/>
         </div>
         <div className="col-span-12 mt-4">
-          <UserCountriesBars actives={actives}/>
+          <UserCountriesBars monthData={months[0]}/>
         </div>
       </div>
     </div>

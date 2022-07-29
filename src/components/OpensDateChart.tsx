@@ -10,9 +10,9 @@ import {
   YAxis,
 } from "recharts";
 import colors from "../colors";
-import { ActiveUser } from "../interfaces";
+import { MonthData } from "../interfaces";
 
-const OpensDateChart = ({actives}: {actives: ActiveUser[]}) => {
+const OpensDateChart = ({ monthData }: { monthData: MonthData }) => {
   const opensByDate: {
     date: Moment;
     dateString: string;
@@ -22,7 +22,7 @@ const OpensDateChart = ({actives}: {actives: ActiveUser[]}) => {
     opensCount: number;
   }[] = [];
 
-  actives.forEach((e) => {
+  monthData.users.forEach((e) => {
     if (!e.opensByDate) return;
 
     Object.keys(e.opensByDate).forEach((k) => {
@@ -46,14 +46,16 @@ const OpensDateChart = ({actives}: {actives: ActiveUser[]}) => {
     });
   });
 
-  opensByDate.sort((a,b) => a.date.diff( b.date));
+  opensByDate.sort((a, b) => a.date.diff(b.date));
 
   opensByDate.forEach((e) => (e.avg = e.opensCount / e.userCount));
 
-  const minDate = moment("2022-06-01");
-  const maxDate = moment("2022-06-30");
+  const minDate = monthData.start;
+  const maxDate = monthData.finish;
   const opens = opensByDate.filter(
-    (e) => e.date.isSameOrAfter(minDate) && e.date.isSameOrBefore(maxDate),
+    (e) =>
+      e.date.isSameOrAfter(minDate, "day") &&
+      e.date.isSameOrBefore(maxDate, "day"),
   );
 
   const CustomTooltip = ({ active, payload, label }: any) => {

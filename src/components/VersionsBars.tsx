@@ -1,5 +1,5 @@
 import colors from "../colors";
-import { ActiveUser } from "../interfaces";
+import { MonthData } from "../interfaces";
 
 const {
   ResponsiveContainer,
@@ -12,9 +12,7 @@ const {
   Bar,
 } = require("recharts");
 
-const VersionsBars = ({actives}: {actives: ActiveUser[]}) => {
-  let totalUsersNoOs = 0;
-
+const VersionsBars = ({ monthData }: { monthData: MonthData }) => {
   let totalUsers = 0;
   let versionsList: {
     name: string;
@@ -27,7 +25,6 @@ const VersionsBars = ({actives}: {actives: ActiveUser[]}) => {
   // para contar usuarios sin registro de version
   const unknownVersion = {
     name: "Desconocida",
-
     ios: 0,
     android: 0,
     unknown: 0,
@@ -35,11 +32,8 @@ const VersionsBars = ({actives}: {actives: ActiveUser[]}) => {
   };
   versionsList.push(unknownVersion);
 
-  actives.forEach((e) => {
-    if (!e.os) {
-      totalUsersNoOs++;
-      return;
-    }
+  monthData.users.forEach((e) => {
+    if (!e.os) return;
 
     totalUsers++;
 
@@ -64,13 +58,17 @@ const VersionsBars = ({actives}: {actives: ActiveUser[]}) => {
     }
 
     version.total++;
-    switch(e.os) {
-      case 'android': version.android++; break;
-      case 'ios': version.ios++; break;
-      default: version.unknown++;
+    switch (e.os) {
+      case "android":
+        version.android++;
+        break;
+      case "ios":
+        version.ios++;
+        break;
+      default:
+        version.unknown++;
     }
   });
-
 
   // descarto las versiones que tienen menos del 0,1% del total de usuario
   // por lo general son versiones de dev

@@ -1,12 +1,12 @@
 import colors from "../colors";
-import { ActiveUser } from "../interfaces";
+import { MonthData } from "../interfaces";
 
 const { PieChart, Pie, Cell, Tooltip } = require("recharts");
 
-const OsPieChart = ({actives}: {actives: ActiveUser[]}) => {
+const OsPieChart = ({ monthData }: { monthData: MonthData }) => {
   const osList: { name: string; userCount: number }[] = [];
 
-  actives.forEach((e) => {
+  monthData.users.forEach((e) => {
     if (!e.os) return;
 
     let os = osList.find((x) => x.name === e.os);

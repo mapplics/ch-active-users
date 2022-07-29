@@ -10,3 +10,10 @@ export interface ActiveUser {
     [key: string]: number;
   };
 }
+
+
+export interface MonthData {
+  users: ActiveUser[];
+  start: Moment;
+  finish: Moment;
+}

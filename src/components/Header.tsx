@@ -1,9 +1,9 @@
-import { ActiveUser } from "../interfaces";
+import { MonthData } from "../interfaces";
 
-const Header = ({actives}: {actives: ActiveUser[]}) => {
+const Header = ({ monthData }: { monthData: MonthData }) => {
   let totalOpens = 0;
 
-  actives.forEach((element) => {
+  monthData.users.forEach((element) => {
     if (element.opensByDate) {
       totalOpens += Object.keys(element.opensByDate).reduce(
         (prev, k) => prev + element.opensByDate[k],
@@ -29,7 +29,7 @@ const Header = ({actives}: {actives: ActiveUser[]}) => {
               Usuarios activos totales
             </td>
             <td className="pl-4 font-medium">
-              {actives.length.toLocaleString("es-AR")}
+              {monthData.users.length.toLocaleString("es-AR")}
             </td>
           </tr>
           <tr>
@@ -45,7 +45,7 @@ const Header = ({actives}: {actives: ActiveUser[]}) => {
               Promedio por usuario
             </td>
             <td className="pl-4 font-medium">
-              {(totalOpens / (actives.length)).toFixed(1).replace(".", ",")}
+              {(totalOpens / monthData.users.length).toFixed(1).replace(".", ",")}
             </td>
           </tr>
         </tbody>

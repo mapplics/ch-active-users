@@ -1,11 +1,10 @@
 import moment from "moment";
-import { ActiveUser } from "./interfaces";
+import { ActiveUser, MonthData } from "./interfaces";
 
-const json: any[] = require("./actives_june_22.json");
-
-const minDate = moment("2022-06-01");
-
-const users: ActiveUser[] = json.map((e: any) => ({
+const june: any[] = require("./actives_june_22.json");
+const juneStart = moment("2022-06-01");
+const juneFinish = moment("2022-06-30");
+const juneUsers: ActiveUser[] = june.map((e: any) => ({
   country: e.country,
   lastOpen: moment(e.lastOpen, 'x'),
   opens: e.opens,
@@ -14,6 +13,11 @@ const users: ActiveUser[] = json.map((e: any) => ({
   version: e.v,
 }));
 
-const actives = users.filter(e => e.lastOpen.isAfter(minDate));
+const juneData: MonthData = {
+  start: juneStart,
+  finish: juneFinish,
+  users: juneUsers.filter(e => e.lastOpen.isAfter(juneStart)),
+};
 
-export default actives;
+
+export default [juneData];
