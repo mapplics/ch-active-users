@@ -38,7 +38,7 @@ const julyData: MonthData = {
   label: "Julio 2022",
   start: julyStart,
   finish: julyFinish,
-  users: julyUsers.filter(e => e.lastOpen.isAfter(julyStart)),
+  users: julyUsers.filter(e => e.lastOpen.isSameOrAfter(julyStart, 'day') ),
 };
 
 
