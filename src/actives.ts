@@ -42,4 +42,25 @@ const julyData: MonthData = {
 };
 
 
-export default [julyData, juneData];
+
+const august: any[] = require("./actives_august_22.json");
+const augustStart = moment("2022-08-01");
+const augustFinish = moment("2022-08-31");
+const augustUsers: ActiveUser[] = august.map((e: any) => ({
+  country: e.country,
+  lastOpen: moment(e.lastOpen, 'x'),
+  opens: e.opens,
+  opensByDate: e.opensByDate,
+  os: e.os,
+  version: e.v,
+}));
+
+const augustData: MonthData = {
+  label: "Agosto 2022",
+  start: augustStart,
+  finish: augustFinish,
+  users: augustUsers.filter(e => e.lastOpen.isSameOrAfter(augustStart, 'day') ),
+};
+
+
+export default [augustData, julyData, juneData];
