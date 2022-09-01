@@ -88,7 +88,7 @@ const Header = ({
       </table>
 
       <div className="absolute right-1 top-1 text-xs">
-        Actualizado: 01/08/2022 09:12
+        Actualizado: 01/09/2022 09:12
       </div>
     </header>
   );
