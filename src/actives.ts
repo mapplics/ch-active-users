@@ -38,7 +38,7 @@ const julyData: MonthData = {
   label: "Julio 2022",
   start: julyStart,
   finish: julyFinish,
-  users: julyUsers.filter(e => e.lastOpen.isSameOrAfter(julyStart, 'day') ),
+  users: julyUsers.filter(e => e.lastOpen.isSameOrAfter(julyStart, 'day')),
 };
 
 
@@ -59,8 +59,28 @@ const augustData: MonthData = {
   label: "Agosto 2022",
   start: augustStart,
   finish: augustFinish,
-  users: augustUsers.filter(e => e.lastOpen.isSameOrAfter(augustStart, 'day') ),
+  users: augustUsers.filter(e => e.lastOpen.isSameOrAfter(augustStart, 'day')),
 };
 
 
-export default [augustData, julyData, juneData];
+const september: any[] = require("./actives_september_22.json");
+const septemberStart = moment("2022-09-01");
+const septemberFinish = moment("2022-09-30");
+const septemberUsers: ActiveUser[] = september.map((e: any) => ({
+  country: e.country,
+  lastOpen: moment(e.lastOpen, 'x'),
+  opens: e.opens,
+  opensByDate: e.opensByDate,
+  os: e.os,
+  version: e.v,
+}));
+
+const septemberData: MonthData = {
+  label: "Septiembre 2022",
+  start: septemberStart,
+  finish: septemberFinish,
+  users: septemberUsers.filter(e => e.lastOpen.isSameOrAfter(septemberStart, 'day')),
+};
+
+
+export default [septemberData, augustData, julyData, juneData];
