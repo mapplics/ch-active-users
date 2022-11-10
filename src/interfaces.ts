@@ -17,4 +17,5 @@ export interface MonthData {
   start: Moment;
   finish: Moment;
   label: string;
+  updated?: Moment;
 }
