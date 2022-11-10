@@ -135,7 +135,7 @@ const november22Data: MonthData = {
   start: november22Start,
   finish: november22Finish,
   updated: moment(november22.date),
-  users: november22Users.filter(e => e.lastOpen.isSameOrAfter(november22Start, 'day')),
+  users: november22Users,
 };
 monthsData.push(november22Data);
 
