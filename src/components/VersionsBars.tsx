@@ -32,7 +32,7 @@ const VersionsBars = ({ monthData }: { monthData: MonthData }) => {
   };
   versionsList.push(unknownVersion);
 
-  monthData.users.forEach((e) => {
+  monthData.users?.forEach((e) => {
     if (!e.os) return;
 
     totalUsers++;

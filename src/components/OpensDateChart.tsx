@@ -22,7 +22,7 @@ const OpensDateChart = ({ monthData }: { monthData: MonthData }) => {
     opensCount: number;
   }[] = [];
 
-  monthData.users.forEach((e) => {
+  monthData.users?.forEach((e) => {
     if (!e.opensByDate) return;
 
     Object.keys(e.opensByDate).forEach((k) => {

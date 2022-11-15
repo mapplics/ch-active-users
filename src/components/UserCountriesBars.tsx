@@ -22,7 +22,7 @@ const UserCountriesBars = ({ monthData }: { monthData: MonthData }) => {
     userCount: number;
   }[] = [];
 
-  monthData.users.forEach((e) => {
+  monthData.users?.forEach((e) => {
     if (!e.country) return;
 
     let country = countries.find((x) => x.name === e.country);

@@ -6,7 +6,7 @@ const { PieChart, Pie, Cell, Tooltip } = require("recharts");
 const OsPieChart = ({ monthData }: { monthData: MonthData }) => {
   const osList: { name: string; userCount: number }[] = [];
 
-  monthData.users.forEach((e) => {
+  monthData.users?.forEach((e) => {
     if (!e.os) return;
 
     let os = osList.find((x) => x.name === e.os);

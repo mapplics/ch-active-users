@@ -1,6 +1,6 @@
 import moment from "moment";
 import Select from "react-select";
-import monthsData from "../data/actives";
+import monthsData from "../monthData";
 import { MonthData } from "../interfaces";
 
 const Header = ({
@@ -13,7 +13,7 @@ const Header = ({
     const opensByDateTotal: { [key: string]: number } = {};
     let totalOpens = 0;
 
-    monthData.users.forEach((element) => {
+    monthData.users?.forEach((element) => {
         if (element.opensByDate) {
             Object.keys(element.opensByDate).forEach((k) => {
                 if (typeof opensByDateTotal[k] !== "number") opensByDateTotal[k] = 0;
@@ -63,7 +63,7 @@ const Header = ({
                             Usuarios activos totales
                         </td>
                         <td className="pl-4 font-medium">
-                            {monthData.users.length.toLocaleString("es-AR")}
+                            {monthData.users!.length.toLocaleString("es-AR")}
                         </td>
                     </tr>
                     <tr>
@@ -79,7 +79,7 @@ const Header = ({
                             Promedio por usuario
                         </td>
                         <td className="pl-4 font-medium">
-                            {(totalOpens / monthData.users.length)
+                            {(totalOpens / monthData.users!.length)
                                 .toFixed(1)
                                 .replace(".", ",")}
                         </td>

@@ -13,7 +13,8 @@ export interface ActiveUser {
 
 
 export interface MonthData {
-  users: ActiveUser[];
+  users?: ActiveUser[];
+  jsonPath: string;
   start: Moment;
   finish: Moment;
   label: string;
