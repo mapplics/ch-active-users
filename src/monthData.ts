@@ -27,7 +27,7 @@ const august22Data: MonthData = {
   label: "Agosto 2022",
   start: moment("2022-08-01"),
   finish: moment("2022-08-31"),
-  jsonPath:"./data/actives_2022_08.json",
+  jsonPath: "./data/actives_2022_08.json",
 };
 monthsData.unshift(august22Data);
 
@@ -36,7 +36,7 @@ const september22Data: MonthData = {
   label: "Septiembre 2022",
   start: moment("2022-09-01"),
   finish: moment("2022-09-30"),
-  jsonPath:"./data/actives_2022_09.json",
+  jsonPath: "./data/actives_2022_09.json",
 };
 monthsData.unshift(september22Data);
 
@@ -45,7 +45,7 @@ const october22Data: MonthData = {
   label: "Octubre 2022",
   start: moment("2022-10-01"),
   finish: moment("2022-10-31"),
-  jsonPath:"./data/actives_2022_10.json",
+  jsonPath: "./data/actives_2022_10.json",
 };
 monthsData.unshift(october22Data);
 
@@ -54,8 +54,17 @@ const november22Data: MonthData = {
   label: "Noviembre 2022",
   start: moment("2022-11-01"),
   finish: moment("2022-11-30"),
-  jsonPath:"./data/actives_2022_11.json",
+  jsonPath: "./data/actives_2022_11.json",
 };
 monthsData.unshift(november22Data);
+
+/// Diciembre 2022
+const december22Data: MonthData = {
+  label: "Diciembre 2022",
+  start: moment("2022-12-01"),
+  finish: moment("2022-12-31"),
+  jsonPath: "./data/actives_2022_12.json",
+};
+monthsData.unshift(december22Data);
 
 export default monthsData;
