@@ -67,4 +67,13 @@ const december22Data: MonthData = {
 };
 monthsData.unshift(december22Data);
 
+/// Enero 2023
+const january23Data: MonthData = {
+  label: "Enero 2023",
+  start: moment("2023-01-01"),
+  finish: moment("2023-01-31"),
+  jsonPath: "./data/actives_2023_01.json",
+};
+monthsData.unshift(january23Data);
+
 export default monthsData;
