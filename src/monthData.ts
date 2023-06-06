@@ -76,7 +76,7 @@ const january23Data: MonthData = {
 };
 monthsData.unshift(january23Data);
 
-/// Enero 2023
+/// Febrero 2023
 const febrery23Data: MonthData = {
   label: "Febrero 2023",
   start: moment("2023-02-01"),
@@ -84,5 +84,14 @@ const febrery23Data: MonthData = {
   jsonPath: "./data/actives_2023_02.json",
 };
 monthsData.unshift(febrery23Data);
+
+/// Mayo 2023
+const may23Data: MonthData = {
+  label: "Mayo 2023",
+  start: moment("2023-05-01"),
+  finish: moment("2023-05-31"),
+  jsonPath: "./data/actives_2023_06.json",
+};
+monthsData.unshift(may23Data);
 
 export default monthsData;
