@@ -112,4 +112,13 @@ const may23Data: MonthData = {
 };
 monthsData.unshift(may23Data);
 
+/// june 2023
+const june23Data: MonthData = {
+  label: "Junio 2023",
+  start: moment("2023-06-01"),
+  finish: moment("2023-06-30"),
+  jsonPath: "./data/actives_2023_06.json",
+};
+monthsData.unshift(june23Data);
+
 export default monthsData;
