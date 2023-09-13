@@ -130,4 +130,13 @@ const july23Data: MonthData = {
 };
 monthsData.unshift(july23Data);
 
+/// Agost 2023
+const agost23Data: MonthData = {
+  label: "Agosto 2023",
+  start: moment("2023-08-01"),
+  finish: moment("2023-08-31"),
+  jsonPath: "./data/actives_08_2023.json",
+};
+monthsData.unshift(agost23Data);
+
 export default monthsData;
